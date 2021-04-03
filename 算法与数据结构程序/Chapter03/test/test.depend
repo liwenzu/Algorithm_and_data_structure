@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1617479719 source:f:\bsuir\算法与数据结构\算法与数据结构程序\chapter03\test\main.cpp
+	<iostream>
+	"keyvector.h"
+
+1617479775 f:\bsuir\算法与数据结构\算法与数据结构程序\chapter03\test\keyvector.h
+	<iostream>
+	<stdexcept>
+	<stddef.h>
+
