@@ -1,5 +1,6 @@
 #include <iostream>
 #include "keyvector.h"
+#include "List.h"
 
 using namespace std;
 
@@ -103,11 +104,59 @@ void test()
 
 }
 
+void signleTest()
+{
+    SingleList<int> list;
+    for(int i=5;i>=0;i--)
+        list.add(i);
+
+    list.print();
+    cout << "链表的大小为" << list.size() << endl;
+
+
+//    cout << "链表的i个位置元素为" << list[5] << endl;
+//    list[5]=15;
+//    cout << "链表的i个位置元素为" << list[5] << endl;
+
+//    list.remove(3);
+
+    SingleList<int> list1(list);
+
+    list1.print();
+    cout << "链表的大小为" << list1.size() << endl;
+}
+
+void doubleList()
+{
+    List<int> dlist;
+
+//    if(dlist.empty())
+    cout << "链表的大小为:"  << dlist.size() << endl;
+    for (int i=0; i<6;i++)
+        dlist.push_back(i);
+    cout << "链表的大小为:"  << dlist.size() << endl;
+    int a=20;
+    for (List<int>::iterator it=dlist.begin();it!=dlist.end();++it)
+    {
+        cout << *(it) << endl;
+        *(it)=a++;
+    }
+//        cout << dlist.back() << endl;
+    cout << "-----------------" << endl;
+    for (List<int>::const_iterator it=dlist.begin();it!=dlist.end();++it)
+    {
+        cout << *(it) << endl;
+    }
+
+}
+
 int main()
 {
 
-    test();
-    tes1();
+//    test();
+//    tes1();
+//    signleTest();
+    doubleList();
 
     cout << "Hello world!" << endl;
     return 0;
