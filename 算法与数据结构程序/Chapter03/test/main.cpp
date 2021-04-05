@@ -13,7 +13,6 @@ public:
             return true;
         return false;
     }
-
     string m_number;
     string m_name;
     int m_age;
@@ -142,6 +141,10 @@ void doubleList()
         *(it)=a++;
     }
 //        cout << dlist.back() << endl;
+
+//    dlist.erase(dlist.begin(), dlist.end());
+
+
     cout << "-----------------" << endl;
     for (List<int>::const_iterator it=dlist.begin();it!=dlist.end();++it)
     {

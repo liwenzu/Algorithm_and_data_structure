@@ -194,6 +194,7 @@ class const_iterator{
             current = current->next;
             return *this;
         }
+
         const_iterator &operator++(int)
         {
             const_iterator old = *this;
@@ -333,9 +334,12 @@ public:
             throw std::logic_error("Iterator mismatch.");
         Node *p = itr.current;
         iterator retVal(*itr.theList, p->next);
+//删除完当前节点，并指向下一个节点
         p->prev->next = p->next;
         p->next->prev = p->prev;
         --theSize;
+ //可能这条命令最后需要删除
+        delete p;
         return retVal;
     }
 
