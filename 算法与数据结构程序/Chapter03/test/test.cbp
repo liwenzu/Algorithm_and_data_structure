@@ -33,6 +33,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="List.h" />
+		<Unit filename="Stack.h" />
 		<Unit filename="keyvector.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

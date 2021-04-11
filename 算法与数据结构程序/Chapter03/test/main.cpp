@@ -1,6 +1,7 @@
 #include <iostream>
 #include "keyvector.h"
 #include "List.h"
+#include "Stack.h"
 
 using namespace std;
 
@@ -153,13 +154,42 @@ void doubleList()
 
 }
 
+void stackTest()
+{
+    ArrStack<int> stackE;
+//    if(stackE.empty())
+//        cout << "----------" << endl;
+    for (int i=0;i<20;i++)
+        stackE.push(i+100);
+
+    cout << "栈的容量大小为:" << stackE.size() << endl;
+
+    cout << "栈顶的元素为:" << stackE.top() << endl;
+//    stackE.top() = 300;
+//    cout << "栈顶的元素为:" << stackE.top() << endl;
+//    while(!stackE.empty())
+//        cout << stackE.pop() << endl;
+//    stackE.clear();
+
+//    cout << "栈的容量大小为:" << stackE.size() << endl;
+
+
+
+//    ArrStack<int> stackE1=stackE;
+    ArrStack<int> stackE1(stackE);
+
+    while(!stackE1.empty())
+        cout << stackE1.pop() << endl;
+}
+
 int main()
 {
 
 //    test();
 //    tes1();
 //    signleTest();
-    doubleList();
+//    doubleList();
+    stackTest();
 
     cout << "Hello world!" << endl;
     return 0;
