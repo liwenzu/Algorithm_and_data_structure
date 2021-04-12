@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1618165497 source:f:\bsuir\算法与数据结构\算法与数据结构程序\chapter03\test\main.cpp
+1618245034 source:f:\bsuir\算法与数据结构\算法与数据结构程序\chapter03\test\main.cpp
 	<iostream>
 	"keyvector.h"
 	"List.h"
@@ -15,6 +15,6 @@
 	<stdexcept>
 	<stddef.h>
 
-1618165453 f:\bsuir\算法与数据结构\算法与数据结构程序\chapter03\test\stack.h
+1618245598 f:\bsuir\算法与数据结构\算法与数据结构程序\chapter03\test\stack.h
 	<iostream>
 

@@ -102,3 +102,106 @@ private:
     }
 };
 
+
+template <class T>
+class LinkStack{
+private:
+    struct Node{
+        Node(const T &d=T(), Node *n=nullptr)
+        {
+            data = d;
+            next = n;
+        }
+        T data;
+        Node *next;
+    };
+public:
+    LinkStack()
+    {
+        stackSize = 0;
+        head = nullptr;
+        cout << "链栈对象创建，以及构造函数调用!" << endl;
+    }
+
+    LinkStack(const LinkStack &rhs)
+    {
+        stackSize=0;
+        head=nullptr;
+        operator=(rhs);
+    }
+
+    ~LinkStack()
+    {
+        clear();
+        cout << "链栈对象释放，内存空间释放!" << endl;
+    }
+
+    LinkStack &operator=(const LinkStack &rhs)
+    {
+        clear();
+        Node *src = rhs.head;
+        while(src != nullptr)
+        {
+            push(src->data);
+            src = src->next;
+        }
+        return *this;
+    }
+
+    void push(const T &element)
+    {
+        Node *ptr = new Node(element, head);
+        head = ptr;
+        stackSize++;
+    }
+
+    T &top()
+    {
+        return head->data;
+    }
+
+    const T &top() const
+    {
+        return head->data;
+    }
+
+    void pop()
+    {
+          Node *ptr = head->next;
+          delete head;
+          head = ptr;
+          stackSize--;
+    }
+
+    void clear()
+    {
+        while(!empty())
+            pop();
+    }
+
+    bool empty() const {return stackSize == 0;}
+
+    int size() const {return stackSize;}
+
+private:
+    int stackSize;
+    Node *head;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

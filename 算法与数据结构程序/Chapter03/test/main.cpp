@@ -182,6 +182,45 @@ void stackTest()
         cout << stackE1.pop() << endl;
 }
 
+void stackList()
+{
+    LinkStack<int> linStack;
+    for(int i=0; i<5; i++)
+        linStack.push(20+i);
+    if (linStack.empty())
+        cout << "链栈为空" << endl;
+    cout << "链栈的大小为:" << linStack.size() << endl;
+
+//    linStack.top()=60;
+//    linStack.const_top()=60;
+
+//    cout << "链栈的顶层元素为:" << linStack.top() << endl;
+
+
+//    while(!linStack.empty())
+//    {
+//        cout << linStack.top() << endl;
+//        linStack.pop();
+//    }
+//    cout << "链栈的大小为:" << linStack.size() << endl;
+
+    cout << "--------------------------" << endl;
+
+//    LinkStack<int> linStack1 = linStack;
+
+    LinkStack<int> linStack1 = linStack;
+    cout << "第二个链栈的大小为:" << linStack1.size() << endl;
+    while(!linStack1.empty())
+    {
+        cout << linStack1.top() << endl;
+        linStack1.pop();
+    }
+    cout << "第二个链栈的大小为:" << linStack1.size() << endl;
+
+
+
+}
+
 int main()
 {
 
@@ -189,7 +228,8 @@ int main()
 //    tes1();
 //    signleTest();
 //    doubleList();
-    stackTest();
+//    stackTest();
+    stackList();
 
     cout << "Hello world!" << endl;
     return 0;
