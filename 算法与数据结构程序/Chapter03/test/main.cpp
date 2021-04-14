@@ -2,6 +2,7 @@
 #include "keyvector.h"
 #include "List.h"
 #include "Stack.h"
+#include "Queue.h"
 
 using namespace std;
 
@@ -221,6 +222,72 @@ void stackList()
 
 }
 
+//顺序队列测试的例子
+void arrque()
+{
+    ArrQueue<int> queueT;
+     for (int i=0;i<5;i++)
+        queueT.enqueue(i*i);
+
+
+    if (queueT.empty())
+        cout << "队列为空" << endl;
+
+    cout << "队列的长度为:" << queueT.length() << endl;
+
+
+//    while (!queueT.empty())
+//        cout << queueT.dequeue() << endl;
+
+    cout << "队头元素为:" << queueT.headQueue() << endl;
+
+    queueT.headQueue() = 10;
+
+    cout << "队头元素为:" << queueT.headQueue() << endl;
+
+    cout << "队列的长度为:" << queueT.length() << endl;
+
+
+//    ArrQueue<int> queueT1 = queueT;
+      ArrQueue<int> queueT1;
+//    ArrQueue<int> queueT1(queueT);
+      queueT1 = queueT;
+
+
+    while (!queueT.empty())
+        cout << queueT.dequeue() << endl;
+}
+
+//链表形式队列的创建
+void listque()
+{
+    LinkQueue<int> queueT;
+
+    for (int i=2; i<7;i++)
+        queueT.enqueue(i*i);
+
+    cout << "链队列的长度为:" << queueT.size() << endl;
+
+//    queueT.headQueu()=20;
+//
+//    cout << "队列的头数据为:" << queueT.headQueu() << endl;
+
+//    while (queueT.size() !=0)
+//        cout << queueT.dequeue() << endl;
+
+    LinkQueue<int> queueT1(queueT);
+//    queueT1 = queueT;
+
+    cout << "链队列的长度为:" << queueT1.size() << endl;
+
+    while (queueT1.size() !=0)
+        cout << queueT1.dequeue() << endl;
+
+
+    cout << "链队列的长度为:" << queueT1.size() << endl;
+
+}
+
 int main()
 {
 
@@ -229,7 +296,9 @@ int main()
 //    signleTest();
 //    doubleList();
 //    stackTest();
-    stackList();
+//    stackList();
+//    arrque();
+    listque();
 
     cout << "Hello world!" << endl;
     return 0;
