@@ -52,6 +52,19 @@ void testBinTree()
     cout << "the depth of tree:" << tree.treeDepth() << endl;
 
     cout << "the total nodes of tree:" << tree.nodeCount() << endl;
+
+
+
+    cout << "---------------------------" << endl;
+
+
+    BinarySearchTree<int> example;
+
+    example.xianInsert();
+
+    example.printXianTree();
+
+
 }
 
 int main()

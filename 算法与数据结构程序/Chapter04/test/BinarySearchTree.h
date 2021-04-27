@@ -47,6 +47,12 @@ public:
 
     void insert (const T &x) {insert (x, root);}
 
+    void xianInsert()
+    {
+        //使用先序序列创建二叉树
+        xianInsert(root);
+    }
+
     bool empty( ) const {return root == nullptr;}
 
     void makeEmpty()
@@ -264,6 +270,20 @@ private:
         if (t==nullptr)
             return 0;
         return nodeCount(t->left)+nodeCount(t->right)+1;
+    }
+
+    void xianInsert(BinaryNode *&t)
+    {
+        T input;
+        cout << "请输入，需要插入的元素，如果当前节点没孩子节点则输入-1" << endl;
+        cin >> input;
+        if (input == -1)
+            t = nullptr;
+        else{
+            t = new BinaryNode(input, nullptr, nullptr);
+            xianInsert(t->left);
+            xianInsert(t->right);
+        }
     }
 
 private:
