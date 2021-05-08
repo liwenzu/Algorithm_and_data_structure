@@ -6,8 +6,10 @@ using namespace std;
 void GMtest()
 {
     GraphMatrix grp;
-    grp.UDGraphCreate();
-    grp.printVe();
+    grp.GraphCreate();
+//    grp.printVe();
+    grp.DFS();
+    grp.BFS();
 }
 
 int main()

@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1620416711 source:f:\bsuir\算法与数据结构\算法与数据结构程序\chapter05(graph structure)\test\main.cpp
+1620505222 source:f:\bsuir\算法与数据结构\算法与数据结构程序\chapter05(graph structure)\test\main.cpp
 	<iostream>
 	"graph.h"
 
-1620420318 f:\bsuir\算法与数据结构\算法与数据结构程序\chapter05(graph structure)\test\graph.h
+1620505970 f:\bsuir\算法与数据结构\算法与数据结构程序\chapter05(graph structure)\test\graph.h
 	<iostream>
-	<string>
+	<cstring>
+	<queue>
 
