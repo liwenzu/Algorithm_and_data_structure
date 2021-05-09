@@ -12,9 +12,19 @@ void GMtest()
     grp.BFS();
 }
 
+void GLtest()
+{
+    GraphLink grp;
+    grp.GraphCreate();
+//    grp.printVe();
+    grp.DFS();
+    grp.BFS();
+}
+
 int main()
 {
-    GMtest();
+//    GMtest();
+    GLtest();
     cout << "Hello world!" << endl;
     return 0;
 }
