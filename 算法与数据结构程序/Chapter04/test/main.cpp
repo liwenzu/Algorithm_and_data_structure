@@ -1,5 +1,6 @@
 #include <iostream>
 #include "BinarySearchTree.h"
+#include "AVLTree.h"
 
 using namespace std;
 
@@ -63,15 +64,26 @@ void testBinTree()
     example.xianInsert();
 
     example.printXianTree();
+}
 
+void AVLTest()
+{
+    AVLTree<int>  avlt;
 
+    for(int i=0;i<5;i++)
+    {
+        int element;
+        cin >> element;
+        avlt.insert(element);
+    }
+    avlt.printTree();
 }
 
 int main()
 {
-    testBinTree();
+//    testBinTree();
 
-
+    AVLTest();
     cout << "Hello world!" << endl;
     return 0;
 }

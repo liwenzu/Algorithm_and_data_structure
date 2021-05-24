@@ -1,8 +1,12 @@
 # depslib dependency file v1.0
-1619539932 source:f:\bsuir\算法与数据结构\算法与数据结构程序\chapter04\test\main.cpp
+1621886914 source:f:\bsuir\算法与数据结构\算法与数据结构程序\chapter04\test\main.cpp
 	<iostream>
 	"BinarySearchTree.h"
+	"AVLTree.h"
 
 1619540615 f:\bsuir\算法与数据结构\算法与数据结构程序\chapter04\test\binarysearchtree.h
+	<iostream>
+
+1621887291 f:\bsuir\算法与数据结构\算法与数据结构程序\chapter04\test\avltree.h
 	<iostream>
 
