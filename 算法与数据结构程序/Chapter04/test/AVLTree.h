@@ -31,6 +31,7 @@ public:
     ~AVLTree()
     {
         cout << "平衡二叉树的析构函数" << endl;
+        makeEmpty();
     }
 
 
@@ -43,6 +44,31 @@ public:
     {
         printTree(root);
         cout <<endl;
+    }
+
+    bool empty() const
+    {
+        return root == nullptr;
+    }
+
+    const T &findMin()
+    {
+        return findMin(root)->ele;
+    }
+
+    const T &findMax()
+    {
+        return findMax(root)->ele;
+    }
+
+    void makeEmpty()
+    {
+        makeEmpty(root);
+    }
+
+    bool contains(const T&x)
+    {
+        return contains(x, root);
     }
 
 private:
@@ -77,6 +103,46 @@ private:
         printTree(t->right);
     }
 
+    AVLNode *findMin(AVLNode *t)
+    {
+        if (t==nullptr)
+            return nullptr;
+        if (t->left == nullptr)
+            return t;
+        return findMin(t->left);
+    }
+
+    AVLNode *findMax(AVLNode *t)
+    {
+        if (t==nullptr)
+            return nullptr;
+        if (t->right==nullptr)
+            return t;
+        return findMax(t->right);
+    }
+
+    void makeEmpty(AVLNode *&t)
+    {
+        if (t!=nullptr)
+        {
+            makeEmpty(t->left);
+            makeEmpty(t->right);
+            delete t;
+        }
+        t = nullptr;
+    }
+
+    bool contains(const T&x, AVLNode *t)
+    {
+        if (t==nullptr)
+            return false;
+        else if (t->ele == x)
+            return true;
+        else if (t->ele > x )
+            return contains(x, t->left);
+        else
+            return contains(x, t->right);
+    }
 
 private:
     AVLNode *root;

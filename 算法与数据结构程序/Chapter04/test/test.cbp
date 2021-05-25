@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="AVLTree.h" />
 		<Unit filename="BinarySearchTree.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>

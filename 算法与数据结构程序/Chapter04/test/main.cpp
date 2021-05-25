@@ -77,6 +77,13 @@ void AVLTest()
         avlt.insert(element);
     }
     avlt.printTree();
+
+    cout << "the smallest number:" << avlt.findMin() << endl;
+    cout << "the biggest number:" << avlt.findMax() << endl;
+
+
+    if (avlt.contains(38))
+        cout << "yes" << endl;
 }
 
 int main()
