@@ -34,6 +34,20 @@ public:
         makeEmpty();
     }
 
+    AVLTree(const AVLTree &rhs)
+    {
+        root = nullptr;
+        operator=(rhs);
+        cout << "拷贝构造函数" << endl;
+    }
+
+    AVLTree &operator=(const AVLTree &rhs)
+    {
+//        cout << "等号运算符重载" << endl;
+        makeEmpty();
+        root = clone(rhs.root);
+        return *this;
+    }
 
     void insert(const T &x)
     {
@@ -72,6 +86,13 @@ public:
     }
 
 private:
+    AVLNode *clone(AVLNode *t) const
+    {
+        if (t == nullptr)
+            return nullptr;
+        return new AVLNode(t->ele, clone(t->left), clone(t->right), t->height);
+    }
+
     int height(AVLNode *t) const
     {
         return t==nullptr? -1: t->height;

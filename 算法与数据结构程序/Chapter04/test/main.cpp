@@ -70,7 +70,7 @@ void AVLTest()
 {
     AVLTree<int>  avlt;
 
-    for(int i=0;i<5;i++)
+    for(int i=0;i<6;i++)
     {
         int element;
         cin >> element;
@@ -84,6 +84,18 @@ void AVLTest()
 
     if (avlt.contains(38))
         cout << "yes" << endl;
+
+
+
+
+
+
+
+//    AVLTree<int>  avltcp(avlt);
+//    AVLTree<int>  avltcp;
+//    avltcp = avlt;
+//
+//    avltcp.printTree();
 }
 
 int main()
