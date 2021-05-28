@@ -64,26 +64,59 @@ void testBinTree()
     example.xianInsert();
 
     example.printXianTree();
+
+
+
+
 }
 
 void AVLTest()
 {
     AVLTree<int>  avlt;
+    int height;
+    cout << "Please enter the total number of nodes" << endl;
+    cin >> height;
+    cout << "***************************" << endl;
 
-    for(int i=0;i<6;i++)
+    for(int i=0;i<height;i++)
     {
         int element;
         cin >> element;
         avlt.insert(element);
     }
+    cout << "***************************" << endl;
     avlt.printTree();
+    cout << "***************************" << endl;
+    avlt.printTreeAVL();
 
     cout << "the smallest number:" << avlt.findMin() << endl;
     cout << "the biggest number:" << avlt.findMax() << endl;
 
 
-    if (avlt.contains(38))
-        cout << "yes" << endl;
+    cout << "Binary tree starts to adjust" << endl;
+
+    int curr;
+    cout << "Please enter the insert node" << endl;
+    cin >> curr;
+    avlt.insertAVL(curr);
+    cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
+    avlt.printTree();
+    cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
+    avlt.printTreeAVL();
+
+
+
+    cout << "remove" << endl;
+    cout << "Please enter the insert node" << endl;
+    cin >> curr;
+    avlt.remove(curr);
+    cout << "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" << endl;
+    avlt.printTree();
+    cout << "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" << endl;
+    avlt.printTreeAVL();
+
+//    if (avlt.contains(38))
+//        cout << "yes" << endl;
 
 
 
