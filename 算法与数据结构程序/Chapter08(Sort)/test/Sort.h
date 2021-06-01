@@ -200,7 +200,48 @@ void selectSortOP(vector<T> &arr)
 }
 
 
+//∂—≈≈–Ú
+template <typename T>
+void HeapAdjust(vector<T> &nu, int s, int m)
+{
+    nu[0] = nu[s];
+    for(int j=2*s;j<=m;j*=2)
+    {
+        if(j<m && nu[j]<nu[j+1])
+            j++;
+        if(nu[0]>=nu[j])
+            break;
+        nu[s] = nu[j];
+        s=j;
+    }
+    nu[s] = nu[0];
+}
 
+template <typename T>
+void CreatHeap(vector<T> &nu)
+{
+    int n=nu.size();
+    for(int i=(n-1)/2;i>0;i--)
+    {
+        HeapAdjust(nu, i, n-1);
+    }
+}
+
+template <typename T>
+void HeapSort(vector<T> &nu)
+{
+    CreatHeap(nu);
+    int n = nu.size();
+    for(int i=n-1;i>1;i--)
+    {
+        nu[0]=nu[1];
+        nu[1]=nu[i];
+        nu[i]=nu[0];
+        HeapAdjust(nu, 1, i-1);
+    }
+}
+
+//πÈ≤¢≈≈–Ú
 
 
 

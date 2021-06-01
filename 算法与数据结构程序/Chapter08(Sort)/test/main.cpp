@@ -13,10 +13,10 @@ using namespace std;
 //        int nums[]={-1,40,20,35,16,8,60,55,45};
 
 //第一位不用留标志位
-        vector<int> arr;
+//        vector<int> arr;
 
 //第一位用于留标志位
-//        vector<int> arr(1,-1);
+        vector<int> arr(1,-1);
         for(int i=0;i<9;i++)
             arr.push_back((rand()%(101)));
 
@@ -51,7 +51,12 @@ using namespace std;
 //简单选择排序()
 //        selectSort(arr);
 //优化
-        selectSortOP(arr);
+//        selectSortOP(arr);
+
+//堆排序
+//        CreatHeap(arr);
+        HeapSort(arr);
+
 
 
         for(int i=0;i<arr.size();i++)
