@@ -12,13 +12,20 @@ using namespace std;
         srand((unsigned)time(NULL));
 //        int nums[]={-1,40,20,35,16,8,60,55,45};
 
+//桶排序专用数组
+ //       int nums[]= { 278,109,63,930,589,184,505,269,8,83 };
+
 //第一位不用留标志位
-//        vector<int> arr;
+        vector<int> arr;
 
 //第一位用于留标志位
-        vector<int> arr(1,-1);
+//        vector<int> arr(1,-1);
         for(int i=0;i<9;i++)
             arr.push_back((rand()%(101)));
+
+//基数排序
+//        for(int i=0;i<=9;i++)
+//            arr.push_back(nums[i]);
 
         for(int i=0;i<arr.size();i++)
             cout << arr[i] << ";";
@@ -55,7 +62,14 @@ using namespace std;
 
 //堆排序
 //        CreatHeap(arr);
-        HeapSort(arr);
+//        HeapSort(arr);
+
+//归并排序
+//        MergeSort(arr);
+
+//基数排序(桶排序)
+        radixsort(arr);
+
 
 
 

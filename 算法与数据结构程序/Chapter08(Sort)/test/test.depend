@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1622566357 source:f:\bsuir\算法与数据结构\算法与数据结构程序\chapter08(sort)\test\main.cpp
+1622666331 source:f:\bsuir\算法与数据结构\算法与数据结构程序\chapter08(sort)\test\main.cpp
 	<iostream>
 	"Sort.h"
 	<cstdlib>
 	<time.h>
 
-1622566943 f:\bsuir\算法与数据结构\算法与数据结构程序\chapter08(sort)\test\sort.h
+1622666270 f:\bsuir\算法与数据结构\算法与数据结构程序\chapter08(sort)\test\sort.h
 	<iostream>
 	<vector>
 

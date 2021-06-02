@@ -242,6 +242,129 @@ void HeapSort(vector<T> &nu)
 }
 
 //归并排序
+template <typename T>
+void merge(vector<T> &tmp, vector<T> &nu, int l, int mid, int r)
+{
+    int pos = 0;
+    int ll = l;
+    int rr = mid+1;
+    while(ll<=mid && rr<=r)
+    {
+        if(nu[ll]<nu[rr])
+            tmp[pos++]=nu[ll++];
+        else
+            tmp[pos++]=nu[rr++];
+    }
+    while (ll<=mid)
+        tmp[pos++] = nu[ll++];
+    while (rr<=r)
+        tmp[pos++] = nu[rr++];
+    pos=0;
+    for(int i=l;i<=r;i++)
+        nu[i]=tmp[pos++];
+}
+
+
+template <typename T>
+void MergeSort(vector<T> &nu, int l, int r)
+{
+    vector<T> tmp(nu.size()+1);
+    if(l<r)
+    {
+        int mid = (l+r)/2;
+        MergeSort(nu, l, mid);
+        MergeSort(nu, mid+1, r);
+        merge(tmp, nu, l, mid, r);
+
+//        for(int i=l;i<=mid;i++)
+//            cout << nu[i] << ";";
+//        cout << "***" << ";";
+//        for(int i=mid+1;i<=r;i++)
+//            cout << nu[i] << ";";
+//        cout << endl;
+    }
+}
+
+
+template <typename T>
+void MergeSort(vector<T> &nu)
+{
+    int n = nu.size();
+    MergeSort(nu, 0, n-1);
+}
+
+
+//基数排序
+/*获得数组中数值的最大位数*/
+template <typename T>
+int maxBit(const vector<T> arr) {
+	int len = 0;
+//	for (auto x : arr) {
+//		int c = 0;
+//		int tmp = x;
+//		while (tmp > 0) {
+//			tmp /= 10;
+//			c++;
+//		}
+//		if (len < c)
+//			len = c;
+//	}
+	for(int i=0;i<arr.size();i++)
+    {
+        int c = 0;
+        int tmp = arr[i];
+        while (tmp > 0) {
+			tmp /= 10;
+			c++;
+		}
+		if (len < c)
+			len = c;
+    }
+	return len;
+}
+
+/*基于int型数组的基数排序简单实现*/
+template <typename T>
+void radixsort(vector<T> & arr)
+{
+	const int BUCKETS = 10;									//设置桶的个数
+	vector<vector<T> > buckets(BUCKETS);		 //设置基数桶
+	int len = maxBit(arr);											 //获得数组中数值的最大位数，依次决定排序次数
+	int r = 1;
+	for (int i = 0; i < len; ++i)									//从低位到高位进行基数排序，依次方法桶中
+	{
+//		for (int & s : arr) {											//此循环按相应基数排序
+//			int k = s / r;
+//			int q = k%BUCKETS;
+//			buckets[q].push_back(std::move(s));
+//		}
+		for(int j=0; j<arr.size();j++)
+        {
+            int k = arr[j]/r;
+			int q = k%BUCKETS;
+			buckets[q].push_back(arr[j]);
+        }
+//		int idx = 0;
+//		for (auto & thisBucket : buckets)					//循环每个桶中的元素
+//		{
+//			for (int &s : thisBucket)								//将每个桶中的元素放入原始数组中
+//				arr[idx++] = std::move(s);
+//			thisBucket.clear();
+//		}
+		int idx = 0;
+		for(int j=0;j<buckets.size();j++)
+        {
+            for(int f=0;f<buckets[j].size();f++)
+                arr[idx++] = buckets[j][f];
+            buckets[j].clear();
+        }
+//		cout << "第"<<i+1<<"趟排序结果：";
+//		for (auto x : arr)
+//			cout << x << " ";
+//		cout << endl;
+		r = r * 10;
+	}
+}
 
 
 
