@@ -35,7 +35,7 @@ void testAlibaba()
     cout << "The maximum value of the goods is:" << price << endl;
 }
 
-//»áÒé²âÊÔ
+//Â»Ã¡Ã’Ã©Â²Ã¢ÃŠÃ”
 void testMeet()
 {
     setMeet s1;
@@ -45,13 +45,22 @@ void testMeet()
     s1.print();
 }
 
+//æœ€çŸ­è·¯å¾„
+void testDi()
+{
+    Dijkstra d1;
+    d1.init();
+    d1.minimumPath();
+    d1.print();
+}
 
 
 int main()
 {
 //    test();
 //    testAlibaba();
-    testMeet();
+//    testMeet();
+    testDi();
 
     cout << "Hello world!" << endl;
     return 0;

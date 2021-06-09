@@ -136,7 +136,118 @@ private:
     vector<Meet> arr;
 };
 
+//最短路径求法
+class Dijkstra{
+public:
+    enum {SPARE_CAPACITY = 100};
+    const int INF = 1e7;
 
+public:
+    Dijkstra()
+    {
+        cout << "构造函数" << endl;
+    }
+
+    ~Dijkstra()
+    {
+        cout << "析构函数" << endl;
+    }
+
+    void init()
+    {
+        int s,e,w;
+        map.resize(SPARE_CAPACITY);
+        for(int i=0;i<map.size();i++)
+            map[i].resize(SPARE_CAPACITY);
+        dist.resize(SPARE_CAPACITY);
+        p.resize(SPARE_CAPACITY);
+        flag.resize(SPARE_CAPACITY);
+
+        system("color 0d");
+        cout << "Please enter the number of cities" << endl;
+        cin >> n;
+        cout << "Please enter the number of lines between cities" << endl;
+        cin >> m;
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=n;j++)
+                map[i][j]=INF;
+        while(m--)
+        {
+            cin >> s >> e >> w;
+            map[s][e]=min(map[s][e],w);
+        }
+        cout << "Please enter your location" << endl;
+        cin >> u;
+    }
+
+    void minimumPath()
+    {
+        for(int i=1;i<=n;i++)
+        {
+            dist[i] = map[u][i];
+            flag[i] = false;
+            if(dist[i]==INF)
+                p[i] = -1;
+            else
+                p[i] = u;
+        }
+        dist[u] = 0;
+        flag[u] = true;
+        for(int i=1;i<=n;i++)
+        {
+            int tmp = INF, t = u;
+            for(int j=1;j<=n;j++)
+            {
+                if(!flag[j] && dist[j]<tmp)
+                {
+                    tmp = dist[j];
+                    t = j;
+                }
+            }
+            if(t==u)
+                return;
+            flag[t] = true;
+            for(int j=1;j<=n;j++)
+            {
+                if(!flag[j] && map[t][j]<INF)
+                {
+                    if(map[t][j]+dist[t]<dist[j])
+                    {
+                        dist[j] = map[t][j]+dist[t];
+                        p[j] = t;
+                    }
+                }
+            }
+        }
+    }
+
+    void print()
+    {
+//        for(int i=1;i<=n;i++)
+//        {
+//            for(int j=1;j<=n;j++)
+//                cout << map[i][j] << ";";
+//            cout << endl;
+//        }
+        for(int i=1;i<=n;i++)
+            cout << dist[i] << ";";
+        cout << endl;
+
+        for(int i=1;i<=n;i++)
+            cout << p[i] << ";";
+        cout << endl;
+    }
+
+
+private:
+    vector<vector<int> > map;
+    vector<int> dist;
+    vector<int> p;
+    vector<bool> flag;
+    int n;
+    int m;
+    int u;
+};
 
 
 
