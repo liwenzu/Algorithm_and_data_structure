@@ -50,8 +50,13 @@ void testDi()
 {
     Dijkstra d1;
     d1.init();
-    d1.minimumPath();
+// Ordinary method
+//    d1.minimumPath
+//  priority queue
+    d1.minimumPathPQ();
     d1.print();
+    d1.printMP();
+//    d1.printCity();
 }
 
 

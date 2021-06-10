@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <stack>
+#include <queue>
 
 using namespace std;
 
@@ -142,6 +144,22 @@ public:
     enum {SPARE_CAPACITY = 100};
     const int INF = 1e7;
 
+private:
+    struct Node{
+        Node() {};
+        Node(int a, int sp)
+        {
+            st = a;
+            step = sp;
+        }
+        int st;
+        int step;
+        bool operator < (const Node &a) const
+        {
+            return step > a.step;
+        }
+    };
+
 public:
     Dijkstra()
     {
@@ -221,6 +239,38 @@ public:
         }
     }
 
+    void minimumPathPQ()
+    {
+        priority_queue<Node> Q;
+        Q.push(Node(u, 0));
+        for(int i=1;i<=n;i++)
+        {
+            flag[i] = false;
+            dist[i] = INF;
+        }
+        dist[u] = 0;
+        while(!Q.empty())
+        {
+            Node it = Q.top();
+            Q.pop();
+            int t = it.st;
+            if(flag[t])
+                continue;
+            flag[t] = true;
+            for(int i=1;i<=n;i++)
+            {
+                if(!flag[i] && map[t][i]<INF)
+                {
+                    if(dist[i]>map[t][i]+dist[t])
+                    {
+                        dist[i] = map[t][i]+dist[t];
+                        Q.push(Node(i, dist[i]));
+                    }
+                }
+            }
+        }
+    }
+
     void print()
     {
 //        for(int i=1;i<=n;i++)
@@ -238,6 +288,42 @@ public:
         cout << endl;
     }
 
+    void printMP()
+    {
+        cout << "Bob's location is:" << u << endl;
+        for(int i=1;i<=n;i++)
+        {
+            cout << "Bob:" << u << "-" << "Arrived location:" << i << " ";
+            if(dist[i] == INF)
+                cout << "Sorry there is no way" << endl;
+            else
+                cout << "The shortest path is:" << dist[i] << endl;
+        }
+    }
+
+    void printCity()
+    {
+        int x;
+        stack<int> s;
+        cout << "The source point is" << u << endl;
+        for(int i=1;i<=n;i++)
+        {
+            x = p[i];
+            while(x!=-1)
+            {
+                s.push(x);
+                x = p[x];
+            }
+
+            cout << "The path from the source point to the other points is: ";
+            while(!s.empty())
+            {
+                cout << s.top() << "---";
+                s.pop();
+            }
+            cout << i << ";The shortest path is:" << dist[i] << endl;
+        }
+    }
 
 private:
     vector<vector<int> > map;
