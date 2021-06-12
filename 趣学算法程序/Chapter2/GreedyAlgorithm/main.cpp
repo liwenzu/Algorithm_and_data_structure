@@ -59,13 +59,22 @@ void testDi()
 //    d1.printCity();
 }
 
+void testHC()
+{
+    HuffmanCoding hu;
+    hu.HuffmanTree();
+    hu.HuffmanCode();
+    hu.print();
+}
+
 
 int main()
 {
 //    test();
 //    testAlibaba();
 //    testMeet();
-    testDi();
+//    testDi();
+    testHC();
 
     cout << "Hello world!" << endl;
     return 0;

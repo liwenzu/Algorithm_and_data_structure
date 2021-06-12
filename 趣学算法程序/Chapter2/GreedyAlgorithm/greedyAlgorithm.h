@@ -335,6 +335,141 @@ private:
     int u;
 };
 
+//Huffman coding
+class HuffmanCoding {
+    enum{MAXBIT = 100, MAXVALUE = 10000, MAXLEAF = 30, MAXNODE = MAXLEAF*2 - 1};
+
+private:
+    struct HNodeType {
+        HNodeType()
+        {
+            weight = 0;
+            parent = -1;
+            lchild = -1;
+            rchild = -1;
+        }
+        double weight;
+        int parent;
+        int lchild;
+        int rchild;
+        string value;
+    };
+
+    struct HCodeType {
+        HCodeType()
+        {
+            bit.resize(MAXBIT);
+            start = 0;
+        }
+        vector<int> bit;
+        int start;
+    };
+
+public:
+    HuffmanCoding()
+    {
+        cout << "Constructor" << endl;
+        HuffNode.resize(MAXNODE);
+        HuffCode.resize(MAXLEAF);
+    }
+
+    ~HuffmanCoding()
+    {
+        cout << "Destructor" << endl;
+    }
+
+    void HuffmanTree()
+    {
+        cout << "Please input n: " << endl;
+        cin >> n;
+
+        int x1,x2;
+        double m1,m2;
+        for(int i=0;i<2*n-1;i++)
+        {
+            HuffNode[i].weight = 0;
+            HuffNode[i].lchild = -1;
+            HuffNode[i].rchild = -1;
+            HuffNode[i].parent = -1;
+        }
+        for(int i=0;i<n;i++)
+        {
+            cout << "Please input value and weight of leaf node" << i+1 << endl;
+            cin >> HuffNode[i].value >> HuffNode[i].weight;
+        }
+        for(int i=0;i<n-1;i++)
+        {
+            m1 = m2 = MAXVALUE;
+            x1 = x2 = 0;
+            for(int j=0;j<n+i;j++)
+            {
+                if(HuffNode[j].parent == -1 && HuffNode[j].weight < m1)
+                {
+                    m2 = m1;
+                    x2 = x1;
+                    m1 = HuffNode[j].weight;
+                    x1 = j;
+                }
+                else if(HuffNode[j].weight < m2 && HuffNode[j].parent == -1)
+                {
+                    m2 = HuffNode[j].weight;
+                    x2 = j;
+                }
+            }
+            HuffNode[n+i].weight = m1+m2;
+            HuffNode[n+i].lchild = x1;
+            HuffNode[n+i].rchild = x2;
+            HuffNode[x1].parent = n+i;
+            HuffNode[x2].parent = n+i;
+        }
+    }
+
+    void HuffmanCode()
+    {
+        HCodeType cd;
+        int c,p;
+        for(int i=0;i<n;i++)
+        {
+            cd.start = n-1;
+            p = HuffNode[i].parent;
+            c = i;
+            while(p!=-1)
+            {
+                if(HuffNode[p].lchild == c)
+                    cd.bit[cd.start] = 0;
+                else
+                    cd.bit[cd.start] = 1;
+                cd.start--;
+                c = p;
+                p = HuffNode[p].parent;
+            }
+            for(int j =cd.start+1;j<n;j++)
+                HuffCode[i].bit[j] = cd.bit[j];
+            HuffCode[i].start = cd.start;
+        }
+    }
+
+    void print()
+    {
+        for(int i=0;i<2*n-1;i++)
+        {
+            cout << HuffNode[i].weight << " : " << HuffNode[i].parent << " : " << HuffNode[i].lchild << " : " << HuffNode[i].rchild << " : " << HuffNode[i].value << endl;
+        }
+        for(int i=0;i<n;i++)
+        {
+            cout << HuffNode[i].value << ": Huffman code is: ";
+            for(int j=HuffCode[i].start+1;j<n;j++)
+                cout << HuffCode[i].bit[j];
+            cout << endl;
+        }
+    }
+
+private:
+    int n;
+    vector<HNodeType> HuffNode;
+    vector<HCodeType> HuffCode;
+};
+
 
 
 
