@@ -470,6 +470,119 @@ private:
     vector<HCodeType> HuffCode;
 };
 
+//最小生成树
+class minSpaTree{
+    enum{MAXNODE = 100, INF = 0x3fffffff};
+
+public:
+    minSpaTree()
+    {
+        cout << "Constructor" << endl;
+        closest.resize(MAXNODE);
+        lowcost.resize(MAXNODE);
+        s.resize(MAXNODE);
+        c.resize(MAXNODE);
+        for (int i=0;i<c.size();i++)
+            c[i].resize(MAXNODE);
+    }
+
+    ~minSpaTree()
+    {
+        cout << "Destructor" << endl;
+    }
+
+    void init()
+    {
+        cout << "Please enter the number of nodes (N) and edges (M)" << endl;
+        cin >> n >> m;
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=n;j++)
+                c[i][j] = INF;
+        cout << "Please enter the nodes u and v, and their weight w" << endl;
+        int u,v,w;
+        for(int i=1;i<=m;i++)
+        {
+            cin >> u >> v >> w;
+            c[u][v] = c[v][u] = w;
+        }
+        cout << "Please enter the start node" << endl;
+        cin >> u0;
+    }
+
+    void prim()
+    {
+        s[u0] = true;
+        for(int i=1;i<=n;i++)
+        {
+            if(i!=u0)
+            {
+                closest[i] = u0;
+                lowcost[i] = c[u0][i];
+                s[i] = false;
+            }
+            else
+                lowcost[u0] = 0;
+        }
+        for(int i=1;i<=n;i++)
+        {
+            int t=u0,temp=INF;
+            for(int j=1;j<=n;j++)
+            {
+                if(!s[j] && lowcost[j]<temp)
+                {
+                    t=j;
+                    temp=lowcost[j];
+                }
+            }
+            if(t==u0)
+                break;
+            s[t] = true;
+            for(int j=1;j<=n;j++)
+            {
+                if(!s[j] && c[t][j]<lowcost[j])
+                {
+                    lowcost[j] = c[t][j];
+                    closest[j] = t;
+                }
+            }
+        }
+        int sumcost;
+        for(int i=1;i<=n;i++)
+        {
+            cout << lowcost[i] << ";";
+            sumcost+=lowcost[i];
+        }
+        cout << endl;
+        cout << "Minimum cost is: " << sumcost << endl;
+    }
+
+    void print()
+    {
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=n;j++)
+                cout << c[i][j] << ";";
+            cout << endl;
+        }
+        for(int i=1;i<=n;i++)
+            cout << closest[i] << ";";
+        cout << endl;
+        for(int i=1;i<=n;i++)
+            cout << lowcost[i] << ";";
+        cout << endl;
+    }
+
+private:
+    vector<int> closest;
+    vector<int> lowcost;
+    vector<bool> s;
+    vector<vector<int> > c;
+    int n;
+    int m;
+    int u0;
+};
+
+
 
 
 

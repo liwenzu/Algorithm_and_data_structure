@@ -67,6 +67,14 @@ void testHC()
     hu.print();
 }
 
+void testMT()
+{
+    minSpaTree MT;
+    MT.init();
+    MT.prim();
+ //   MT.print();
+
+}
 
 int main()
 {
@@ -74,7 +82,8 @@ int main()
 //    testAlibaba();
 //    testMeet();
 //    testDi();
-    testHC();
+//    testHC();
+    testMT();
 
     cout << "Hello world!" << endl;
     return 0;
