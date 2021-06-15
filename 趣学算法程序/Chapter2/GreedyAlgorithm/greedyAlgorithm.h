@@ -582,6 +582,124 @@ private:
     int u0;
 };
 
+//第二种求最小生成树的算法Kruskal
+class Kruskal{
+
+enum {MAXNODE = 100};
+
+private:
+    struct Edge{
+        Edge(int u1 = 0, int v1= 0, int w1 = 0)
+        {
+            u = u1;
+            v = v1;
+            w = w1;
+        }
+        int u;
+        int v;
+        int w;
+    };
+
+    static bool cmp(const Edge &a, const Edge &b)
+    {
+        return a.w < b.w;
+    }
+
+public:
+
+    Kruskal()
+    {
+        cout << "Constructor" << endl;
+        nodeset.resize(MAXNODE);
+        edg.resize(MAXNODE*MAXNODE);
+    }
+
+    ~Kruskal()
+    {
+        cout << "Destructor" << endl;
+    }
+
+    void init()
+    {
+        cout << "Please enter the number of nodes n and the number of sides m:" << endl;
+        cin >> n >> m;
+        for(int i=1;i<=n;i++)
+            nodeset[i] = i;
+    }
+
+    int Merge(int st, int en)
+    {
+        int p = nodeset[st];
+        int q = nodeset[en];
+        if(p==q)
+            return 0;
+        for(int i=1;i<=n;i++)
+        {
+            if(nodeset[i] == q)
+                nodeset[i] = p;
+        }
+        return 1;
+    }
+
+    int Find(int x)
+    {
+        if (x!=nodeset[x])
+            nodeset[x] = Find(nodeset[x]);
+        return nodeset[x];
+    }
+
+//优化的合并算法(不是特别理解，需要看书)
+    int MergeYH(int a, int b)
+    {
+        int p =Find(a);
+        int q = Find(b);
+        if (p==q)
+            return 0;
+        if(p>q)
+            nodeset[p] = q;
+        else
+            nodeset[q] = p;
+        return 1;
+    }
+
+    void kruskal()
+    {
+        cout << "Please input node u, v and edge weight w" << endl;
+        for(int i=1;i<=m;i++)
+            cin >> edg[i].u >> edg[i].v >> edg[i].w;
+        sort(edg.begin()+1, edg.begin()+m+1, cmp);
+        int f=n;
+        for(int i=1;i<=m;i++)
+        {
+            if(MergeYH(edg[i].u, edg[i].v))
+            {
+                ans+=edg[i].w;
+                f--;
+                if(f==1)
+                    break;
+            }
+        }
+    }
+
+    void print()
+    {
+        for(int i=1;i<=n;i++)
+            cout << nodeset[i] << ";";
+        cout << endl;
+
+        for(int i=1;i<=m;i++)
+            cout << edg[i].u << " ; " << edg[i].v << " ; " << edg[i].w << endl;
+        cout << "The minimum cost is: " << ans << endl;
+    }
+
+
+private:
+    int n;
+    int m;
+    vector<int> nodeset;
+    vector<Edge> edg;
+    int ans=0;
+};
 
 
 

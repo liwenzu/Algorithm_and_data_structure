@@ -76,6 +76,14 @@ void testMT()
 
 }
 
+void testKr()
+{
+    Kruskal kr;
+    kr.init();
+    kr.kruskal();
+    kr.print();
+}
+
 int main()
 {
 //    test();
@@ -83,7 +91,8 @@ int main()
 //    testMeet();
 //    testDi();
 //    testHC();
-    testMT();
+//    testMT();
+    testKr();
 
     cout << "Hello world!" << endl;
     return 0;
