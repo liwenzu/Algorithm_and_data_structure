@@ -12,9 +12,31 @@ void testBS()
         cout << "The location of the element:" << i <<endl;
 }
 
+void tesMS()
+{
+    int n=0;
+    cout << "Please enter the number of elements in the sequence n" << endl;
+    cin >> n;
+    vector<int> A(n);
+    cout << "Please enter the element" << endl;
+    for(int i=0;i<n;i++)
+        cin >> A[i];
+    cout << "Results before merging" << endl;
+    for(int i=0;i<n;i++)
+        cout << A[i] << " ";
+    cout << endl;
+    MergeSort(A, 0, n-1);
+    cout << "Merged result" << endl;
+    for(int i=0;i<n;i++)
+        cout << A[i] << " ";
+    cout << endl;
+}
+
+
 int main()
 {
-    testBS();
+//    testBS();
+    tesMS();
     cout << "Hello world!" << endl;
     return 0;
 }

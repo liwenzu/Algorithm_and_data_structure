@@ -51,3 +51,35 @@ int binarySearch()
 //    }
 //    return -1;
 }
+
+void Merge(vector<int> &A, int low, int high, int mid)
+{
+    vector<int> temp(high-low+1);
+    int i=low, j=mid+1, k=0;
+    while(i<=mid && j<=high)
+    {
+        if(A[i]<=A[j])
+            temp[k++] = A[i++];
+        else
+            temp[k++] = A[j++];
+    }
+    while (i<=mid)
+        temp[k++] = A[i++];
+    while (j<=high)
+        temp[k++] = A[j++];
+    for(i=low,k=0;i<=high;i++)
+        A[i] = temp[k++];
+}
+
+void MergeSort(vector<int> &A, int low, int high)
+{
+    if(low < high)
+    {
+        int mid = (low+high)/2;
+        MergeSort(A, low, mid);
+        MergeSort(A, mid+1, high);
+        Merge(A, low, high, mid);
+    }
+
+}
+
