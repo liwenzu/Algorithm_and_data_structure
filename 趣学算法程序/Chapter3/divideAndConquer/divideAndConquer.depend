@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1623865639 source:f:\bsuir\算法与数据结构\趣学算法程序\chapter3\divideandconquer\main.cpp
+1624044111 source:f:\bsuir\算法与数据结构\趣学算法程序\chapter3\divideandconquer\main.cpp
 	<iostream>
 	"divideAndConquer.h"
 
-1623867296 f:\bsuir\算法与数据结构\趣学算法程序\chapter3\divideandconquer\divideandconquer.h
+1624094537 f:\bsuir\算法与数据结构\趣学算法程序\chapter3\divideandconquer\divideandconquer.h
 	<iostream>
 	<vector>
 	<algorithm>
