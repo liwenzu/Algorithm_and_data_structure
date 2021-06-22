@@ -45,3 +45,53 @@ void print(vector<vector<int> > &b, string s1, int i, int j)
 }
 
 
+void DE(vector<vector<int> > &dp, string s1, string s2)
+{
+   int temp;
+   for(int i=0;i<dp.size();i++)
+   {
+       for(int j=0;j<dp.size();j++)
+       {
+           if(i==0 || j==0)
+             dp[i][j] = i==0? j:i;
+           else
+           {
+             if (s1[i-1] == s2[j-1])
+               temp = 0;
+             else
+               temp = 1;
+             dp[i][j] = min(dp[i-1][j]+1, min(dp[i][j-1]+1, dp[i-1][j-1]+temp));
+           }
+       }
+   }
+}
+
+void rent(vector<vector<int> > &dp, vector<vector<int> > &s)
+{
+    for(int d=3;d<dp.size();d++)
+    {
+        for(int i=1;i<dp.size()-d+1;i++)
+        {
+            int j=i+d-1;
+            for(int k=1;k<j;k++)
+            {
+                if(dp[i][k]+dp[k][j]<dp[i][j])
+                {
+                    dp[i][j] = dp[i][k]+dp[k][j];
+                    s[i][j] = k;
+                }
+            }
+        }
+    }
+}
+
+void print(vector<vector<int> > &s, int i, int j)
+{
+    if(s[i][j] == 0)
+    {
+        cout << "---" <<j;
+        return;
+    }
+    print(s, i,s[i][j]);
+    print(s, s[i][j], j);
+}
