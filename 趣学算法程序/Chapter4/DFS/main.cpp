@@ -75,11 +75,39 @@ void testRent()
 //    }
 }
 
+void testMatMul()
+{
+    int n;
+    cout << "Please enter the number of matrices n" << endl;
+    cin >> n;
+    vector<vector<int> > m(n+1, vector<int>(n+1));
+    vector<vector<int> > s(n+1, vector<int>(n+1));
+    vector<int> p(n+1);
+    cout << "Please enter the number of rows of each matrix and the number of columns of the last matrix in turn: " << endl;
+    for(int i=0;i<=n;i++)
+        cin >> p[i];
+    matrixChain(m, s, p);
+    mprint(s, 1, n);
+    cout << endl;
+    cout << "The minimum calculation amount is: " << m[1][n] << endl;
+//    for(int i=0;i<=n;i++)
+//        cout << p[i] << " ";
+//    cout << endl;
+//    for(int i=0;i<=n;i++)
+//    {
+//        for(int j=0;j<=n;j++)
+//            cout << m[i][j] << " ";
+//        cout << endl;
+//    }
+}
+
+
 int main()
 {
 //    testLCSL();
 //    testED();
-    testRent();
+//    testRent();
+    testMatMul();
 
     cout << "Hello world!" << endl;
     return 0;
