@@ -101,13 +101,41 @@ void testMatMul()
 //    }
 }
 
+void testPZ()
+{
+    int n;
+    cout << "Please enter the number of vertices n" << endl;
+    cin >> n;
+    vector<vector<double> > m(n, vector<double>(n));
+    vector<vector<int> > s(n, vector<int>(n));
+    vector<vector<double> > g(n, vector<double>(n));
+    cout << "Please enter the weight of each vertex in turn: " << endl;
+    for(int i=0;i<g.size();i++)
+    {
+        for(int j=0;j<g[i].size();j++)
+            cin >> g[i][j];
+    }
+    PZ(m, g, s);
+    cout << m[1][n-1]<< endl;
+    printPZ(s, 1, n-1);
+/*
+    for(int i=0;i<g.size();i++)
+    {
+        for(int j=0;j<g[i].size();j++)
+            cout << g[i][j] << " ";
+        cout << endl;
+    }
+*/
+}
+
 
 int main()
 {
 //    testLCSL();
 //    testED();
 //    testRent();
-    testMatMul();
+//    testMatMul();
+    testPZ();
 
     cout << "Hello world!" << endl;
     return 0;

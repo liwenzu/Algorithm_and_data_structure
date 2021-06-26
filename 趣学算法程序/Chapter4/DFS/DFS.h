@@ -131,3 +131,42 @@ void mprint(vector<vector<int> > &s, int i, int j)
     mprint(s, s[i][j]+1, j);
     cout << ")";
 }
+
+
+void PZ(vector<vector<double> > &m, vector<vector<double> > &g, vector<vector<int> > &s)
+{
+    for(int d=2;d<g.size();d++)
+    {
+        for(int i=1;i<g.size()-d+1;i++)
+        {
+            int j = i+d-1;
+            m[i][j] = m[i+1][j] + g[i-1][i] + g[i][j] + g[i-1][j];
+            s[i][j] = i;
+            for(int k=i+1;k<j;k++)
+            {
+                double temp = m[i][k] + m[k+1][j] + g[i-1][k] +g[k][j] + g[i-1][j];
+                if(temp < m[i][j])
+                {
+                    m[i][j] = temp;
+                    s[i][j] = k;
+                }
+            }
+        }
+    }
+}
+
+void printPZ(vector<vector<int> > &s, int i, int j)
+{
+    if(i==j)
+        return;
+    if(s[i][j]>i)
+        cout << "{v" << i-1 << "v" << s[i][j] << "}" << endl;
+    if(j>s[i][j]+1)
+        cout << "{v" << s[i][j] << "v" << j << "}" << endl;
+    printPZ(s, i, s[i][j]);
+    printPZ(s, s[i][j]+1, j);
+}
+
+
+
+
