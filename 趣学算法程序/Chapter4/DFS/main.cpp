@@ -128,6 +128,50 @@ void testPZ()
 */
 }
 
+void testST()
+{
+    int n;
+    cout << "Please enter the number of piles of stones n" << endl;
+    cin >> n;
+    vector<vector<int> > smax(205, vector<int>(205));
+    vector<vector<int> > smin(205, vector<int>(205));
+    vector<int> ssum(205);
+    vector<int> a(205);
+    cout << "Please enter the number of stones in each pile one by one" << endl;
+    for(int i=1;i<=n;i++)
+        cin >> a[i];
+    straight(n, a, ssum, smax, smin);
+    cout << "The minimum cost is (Straight): " << smin[1][n] << endl;
+    cout << "The maximum cost is (Straight): " << smax[1][n] << endl;
+    int minc = 0, maxc = 0;
+    circular(n, a, ssum, smax, smin, maxc, minc);
+    cout << "The minimum cost is (circular): " << minc << endl;
+    cout << "The maximum cost is (circular): " << maxc << endl;
+}
+
+void testSP()
+{
+    int n,W;
+    cout << "Please enter the number of products n: " << endl;
+    cin >> n;
+    cout << "Please enter the capacity w of the shopping cart: " << endl;
+    cin >> W;
+    vector<vector<int> > c(n+1, vector<int>(W+1));
+    vector<int> w(n+1);
+    vector<int> v(n+1);
+    vector<int> x(n+1);
+    cout << "Please enter the weight w and value v of each item in turn" << endl;
+    for(int i=1;i<=n;i++)
+        cin >> w[i] >> v[i];
+    SP(c, w, v);
+    cout << "The maximum value loaded into the shopping cart is: " << c[n][W] << endl;
+    printSP(c, x, w);
+    cout << "The items loaded into the shopping cart are: ";
+    for(int i=1;i<x.size();i++)
+        if(x[i]!=0)
+            cout << i << " ";
+    cout << endl;
+}
 
 int main()
 {
@@ -135,7 +179,9 @@ int main()
 //    testED();
 //    testRent();
 //    testMatMul();
-    testPZ();
+//    testPZ();
+//    testST();
+    testSP();
 
     cout << "Hello world!" << endl;
     return 0;

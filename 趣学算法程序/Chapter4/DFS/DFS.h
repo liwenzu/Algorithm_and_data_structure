@@ -167,6 +167,75 @@ void printPZ(vector<vector<int> > &s, int i, int j)
     printPZ(s, s[i][j]+1, j);
 }
 
+void straight(int n, vector<int> &a, vector<int> &ssum, vector<vector<int> > &smax, vector<vector<int> > &smin)
+{
+    for(int i=1;i<=n;i++)
+    {
+        smax[i][i] = 0;
+        smin[i][i] = 0;
+    }
+    ssum[0] = 0;
+    for(int i=1;i<=n;i++)
+        ssum[i]=ssum[i-1]+a[i];
+    for(int d=2;d<=n;d++)
+    {
+        for(int i=1;i<=n-d+1;i++)
+        {
+            int j = i+d-1;
+            smax[i][j] = INT_MIN;
+            smin[i][j] = INT_MAX;
+            int temp = ssum[j]-ssum[i-1];
+            for(int k=i;k<j;k++)
+            {
+                smax[i][j] = max(smax[i][j], smax[i][k] + smax[k+1][j] + temp);
+                smin[i][j] = min(smin[i][j], smin[i][k] + smin[k+1][j] +temp);
+            }
+        }
+    }
 
+}
 
+void circular(int n, vector<int> &a, vector<int> &ssum, vector<vector<int> > &smax, vector<vector<int> > &smin, int &maxc, int &minc)
+{
+    for(int i=1;i<=n-1;i++)
+        a[n+i] = a[i];
+    n = 2*n-1;
+    straight(n, a, ssum, smax, smin);
+    n=(n+1)/2;
+    maxc = smax[1][n];
+    minc = smin[1][n];
+    for(int i=2;i<=n;i++)
+    {
+        if(smin[i][i+n-1] < minc)
+            minc = smin[i][i+n-1];
+        if(smax[i][i+n-1]>maxc)
+            maxc = smax[i][i+n-1];
+    }
+}
 
+void SP(vector<vector<int> > &c, vector<int> &w, vector<int> &v)
+{
+    for(int i=1;i<c.size();i++)
+    {
+        for(int j=1;j<c[0].size();j++)
+        {
+            if(j<w[i])
+                c[i][j] = c[i-1][j];
+            else
+                c[i][j] = max(c[i-1][j], c[i-1][j-w[i]] + v[i]);
+        }
+    }
+}
+
+void printSP(vector<vector<int> > &c, vector<int> &x, vector<int> &w)
+{
+    int j = c[0].size()-1;
+    for(int i=c.size()-1;i>0;i--)
+    {
+        if(c[i][j]>c[i-1][j])
+        {
+            x[i] = 1;
+            j-=w[i];
+        }
+    }
+}
