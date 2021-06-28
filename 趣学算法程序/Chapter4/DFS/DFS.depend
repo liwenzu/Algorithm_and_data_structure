@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1624820922 source:f:\bsuir\算法与数据结构\趣学算法程序\chapter4\dfs\main.cpp
+1624913863 source:f:\bsuir\算法与数据结构\趣学算法程序\chapter4\dfs\main.cpp
 	<iostream>
 	"DFS.h"
 
-1624820922 f:\bsuir\算法与数据结构\趣学算法程序\chapter4\dfs\dfs.h
+1624914246 f:\bsuir\算法与数据结构\趣学算法程序\chapter4\dfs\dfs.h
 	<iostream>
 	<vector>
+	<cmath>
 

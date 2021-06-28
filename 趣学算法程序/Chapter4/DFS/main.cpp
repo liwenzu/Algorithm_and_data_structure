@@ -173,6 +173,28 @@ void testSP()
     cout << endl;
 }
 
+void testBS()
+{
+    int n;
+    cout << "Please enter the number of keywords n: " << endl;
+    cin >> n;
+    vector<vector<double> > c(n+2, vector<double>(n+1));
+    vector<vector<double> > w(n+2, vector<double>(n+1));
+    vector<vector<int> > s(n+2, vector<int>(n+1));
+    vector<double> p(n+1);
+    vector<double> q(n+1);
+    cout << "Please enter the search probability of each keyword: " << endl;
+    for(int i=1;i<p.size();i++)
+        cin >> p[i];
+    cout << "Please enter the search probability of each virtual node: " << endl;
+    for(int i=0;i<q.size();i++)
+        cin >> q[i];
+    BST(c, w, s, p, q);
+    cout << "The search cost of the minimum spanning tree is: " << c[1][n] << endl;
+    cout << "The optimal binary search tree is: " << endl;
+    printBST(s, 1, n, 0);
+}
+
 int main()
 {
 //    testLCSL();
@@ -181,7 +203,8 @@ int main()
 //    testMatMul();
 //    testPZ();
 //    testST();
-    testSP();
+//    testSP();
+    testBS();
 
     cout << "Hello world!" << endl;
     return 0;

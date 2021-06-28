@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -237,5 +238,57 @@ void printSP(vector<vector<int> > &c, vector<int> &x, vector<int> &w)
             x[i] = 1;
             j-=w[i];
         }
+    }
+}
+
+void BST(vector<vector<double> > &c, vector<vector<double> > &w, vector<vector<int> > &s, vector<double> &p, vector<double> &q)
+{
+    for(int i=1;i<w.size();i++)
+        w[i][i-1] = q[i-1];
+    for(int t=1;t<c.size()-1;t++)
+    {
+        for(int i=1;i<c.size()-1-t+1;i++)
+        {
+            int j = i+t-1;
+            w[i][j] = w[i][j-1] + p[j] + q[j];
+            c[i][j] = c[i][i-1] + c[i+1][j];
+            s[i][j] = i;
+            for(int k=i+1;k<=j;k++)
+            {
+                double temp = c[i][k-1] + c[k+1][j];
+                if(temp<c[i][j] && fabs(temp-c[i][j])>1E-6)
+                {
+                    c[i][j] = temp;
+                    s[i][j] = k;
+                }
+            }
+            c[i][j]+=w[i][j];
+        }
+    }
+}
+
+
+void printBST(vector<vector<int> > &s, int i, int j, int flag)
+{
+    if(!flag)
+    {
+        cout << "S" << s[i][j] << " is root" << endl;
+        flag = 1;
+    }
+    int k = s[i][j];
+    if(k-1<i)
+        cout << "e" << k-1 << " is the left child of " << "S" << k << endl;
+    else
+    {
+        cout << "S" << s[i][k-1] <<  " is the left child of " << "S" << k << endl;
+        printBST(s, i, k-1, 1);
+    }
+
+    if(k>=j)
+        cout << "e" << j << " is the right child of " << "S" << k << endl;
+    else
+    {
+        cout << "S" << s[k+1][j] << " is the right child of " << "S" << k << endl;
+        printBST(s, k+1, j, 1);
     }
 }
