@@ -8,14 +8,23 @@ void testSp()
 {
     backTrackSp sp;
     sp.init();
-    sp.print();
+ //   sp.print();
 }
+
+void testKS()
+{
+    backTrackKs ks;
+    ks.init();
+//    ks.print();
+
+}
+
 
 
 int main()
 {
-    testSp();
-
+//    testSp();
+    testKS();
     cout << "Hello world!" << endl;
     return 0;
 }
