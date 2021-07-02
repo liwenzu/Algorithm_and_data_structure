@@ -19,12 +19,19 @@ void testKS()
 
 }
 
+void testMP()
+{
+    backTrackMP mp;
+//    mp.print();
+}
+
 
 
 int main()
 {
 //    testSp();
-    testKS();
+//    testKS();
+    testMP();
     cout << "Hello world!" << endl;
     return 0;
 }

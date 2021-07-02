@@ -204,5 +204,93 @@ private:
     vector<bool> x, bestx;
 };
 
+class backTrackMP{
+
+public:
+    backTrackMP(int i=0)
+    {
+        n = i;
+        cout << "Constructor" << endl;
+        init();
+    }
+
+    ~backTrackMP()
+    {
+        cout << "Destructor" << endl;
+    }
+
+    void print()
+    {
+        for(int i=1;i<map.size();i++)
+        {
+            for(int j=1;j<map[i].size();j++)
+                cout << map[i][j] << " ";
+            cout << endl;
+        }
+    }
+
+private:
+
+    void init()
+    {
+        cout << "Please enter the number of nodes: " << endl;
+        cin >> n;
+        cout << "Please enter the number of colors: " << endl;
+        cin >> m;
+        x.resize(n+1);
+        map.resize(n+1);
+        for(int i=0;i<map.size();i++)
+            map[i].resize(n+1);
+        cout << "Please enter the number of edges" << endl;
+        cin >> edge;
+        int u, v;
+        cout << "Please enter two connected nodes u and v in turn: " << endl;
+        for(int i=1;i<=edge;i++)
+        {
+            cin >> u >> v;
+            map[u][v] = map[v][u] = 1;
+        }
+        track(1);
+    }
+
+    bool OK(int t)
+    {
+        for(int i=1;i<t;i++)
+        {
+            if(map[t][i] && x[t] == x[i])
+                return false;
+        }
+        return true;
+    }
+
+    void track(int t)
+    {
+        if(t>n)
+        {
+            sum++;
+            cout << "The " << sum << " option: ";
+            for(int i=1;i<=n;i++)
+                cout << x[i] << " ";
+            cout << endl;
+        }
+        else
+        {
+            for(int i=1;i<=m;i++)
+            {
+                x[t] = i;
+                if(OK(t))
+                    track(t+1);
+            }
+        }
+    }
+
+private:
+    int n;
+    int m;
+    int edge;
+    int sum = 0;
+    vector<int> x;
+    vector<vector<int> > map;
+};
 
 
