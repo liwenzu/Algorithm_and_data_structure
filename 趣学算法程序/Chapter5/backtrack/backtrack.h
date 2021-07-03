@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -293,4 +294,227 @@ private:
     vector<vector<int> > map;
 };
 
+
+class backTrackNK{
+
+public:
+    backTrackNK(int i=0)
+    {
+        n = i;
+        cout << "Constructor" << endl;
+        init();
+    }
+
+    ~backTrackNK()
+    {
+        cout << "Destructor" << endl;
+    }
+
+private:
+    void init()
+    {
+        cout << "Please enter the number of queens n: " << endl;
+        cin >> n;
+        x.resize(n+1);
+        track(1);
+        cout << "The number of answers is: " << countn << endl;
+    }
+
+    void track(int t)
+    {
+        if(t>n)
+        {
+            countn++;
+            for(int i=1;i<=n;i++)
+                cout << x[i] << " ";
+            cout << endl;
+            cout << "---------------" << endl;
+        }
+        else
+        {
+            for(int i=1;i<=n;i++)
+            {
+                x[t] = i;
+                if(place(t))
+                    track(t+1);
+            }
+        }
+    }
+
+    bool place(int t)
+    {
+        for(int i=1;i<t;i++)
+            if(x[t] == x[i] || t-i == fabs(x[t]-x[i]))
+                return false;
+        return true;
+    }
+
+private:
+    int n;
+    int countn = 0;
+    vector<int> x;
+};
+
+class backTrackPR{
+
+private:
+    struct node{
+        node(int a = 0, int b = 0)
+        {
+            x = a;
+            y = b;
+        }
+        int x;
+        int y;
+    };
+
+public:
+    backTrackPR(int i=0)
+    {
+        n = i;
+        cout << "Constructor" << endl;
+        init();
+    }
+
+    ~backTrackPR()
+    {
+        cout << "Destructor" << endl;
+    }
+
+private:
+
+    void init()
+    {
+        cout << "Please enter the number of parts of the machine n: " << endl;
+        cin >> n;
+        x.resize(n+1);
+        bestx.resize(n+1);
+        T.resize(n+1);
+        cout << "Please enter the processing time of each part: " << endl;
+        for(int i=1;i<=n;i++)
+        {
+            cin >> T[i].x >> T[i].y;
+            x[i] = i;
+        }
+        track(1);
+        cout << "Optimal machining parts sequence: ";
+        for(int i=1;i<=n;i++)
+            cout << bestx[i] << " ";
+        cout << endl;
+        cout << "The optimal part processing time is: " << bestf << endl;
+    }
+
+    void track(int t)
+    {
+        if(t>n)
+        {
+            bestx = x;
+            bestf = f2;
+            return;
+        }
+        for(int i=t;i<=n;i++)
+        {
+            f1+=T[x[i]].x;
+            int temp = f2;
+            f2 = max(f1,f2)+T[x[i]].y;
+            if(bestf>f2)
+            {
+                swap(x[t],x[i]);
+                track(t+1);
+                swap(x[t],x[i]);
+            }
+            f1-=T[x[i]].x;
+            f2 = temp;
+        }
+    }
+
+
+private:
+    int n;
+    int bestf = INT_MAX;
+    int f1 = 0;
+    int f2 = 0;
+    vector<int> x, bestx;
+    vector<node> T;
+};
+
+
+
+class backTrackTR{
+
+public:
+    backTrackTR(int i=0)
+    {
+        n = i;
+        cout << "Constructor" << endl;
+        init();
+    }
+
+    ~backTrackTR()
+    {
+        cout << "Destructor" << endl;
+    }
+
+private:
+
+    void init()
+    {
+        cout << "Please enter the number of attractions n: " << endl;
+        cin >> n;
+        x.resize(n+1);
+        bestx.resize(n+1);
+        g.resize(n+1);
+        for(int i=0;i<g.size();i++)
+            g[i].resize(n+1,INT_MAX);
+        for(int i=0;i<=n;i++)
+            x[i] = i;
+        cout << "Please enter the number of connections between attractions m: " << endl;
+        cin >> m;
+        int u, v, w;
+        for(int i=1;i<=m;i++)
+        {
+            cin >> u >> v >> w;
+            g[u][v]=g[v][u] = w;
+        }
+        track(2);
+        cout << "The shortest path is: ";
+        for(int i=1;i<=n;i++)
+            cout << bestx[i] << "--->";
+        cout << "1" << endl;
+        cout << "The shortest path length is: " << best1 << endl;
+    }
+
+    void track(int t)
+    {
+        if(t>n)
+        {
+            if(g[x[n]][1]!=INT_MAX && cl+g[x[n]][1]<best1)
+            {
+                bestx = x;
+                best1 = cl+g[x[n]][1];
+            }
+        }
+        else
+        {
+            for(int i=t;i<=n;i++)
+            {
+                if(g[x[t-1]][x[i]] !=INT_MAX && cl+g[x[t-1]][x[i]]<best1)
+                {
+                    swap(x[t], x[i]);
+                    cl+=g[x[t-1]][x[t]];
+                    track(t+1);
+                    cl-=g[x[t-1]][x[t]];
+                    swap(x[t], x[i]);
+                }
+            }
+        }
+    }
+
+private:
+    int n, m;
+    int best1 = INT_MAX;
+    int cl = 0;
+    vector<int> x, bestx;
+    vector<vector<int> > g;
+};
 

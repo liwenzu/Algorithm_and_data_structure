@@ -25,13 +25,31 @@ void testMP()
 //    mp.print();
 }
 
+void testNK()
+{
+    backTrackNK nk;
+}
+
+void testPR()
+{
+    backTrackPR pr;
+}
+
+void testTR()
+{
+    backTrackTR tr;
+}
+
 
 
 int main()
 {
 //    testSp();
 //    testKS();
-    testMP();
+//    testMP();
+//    testNK();
+//    testPR();
+    testTR();
     cout << "Hello world!" << endl;
     return 0;
 }

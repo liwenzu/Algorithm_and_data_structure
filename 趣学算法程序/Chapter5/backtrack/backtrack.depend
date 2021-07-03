@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1625252775 source:f:\bsuir\算法与数据结构\趣学算法程序\chapter5\backtrack\main.cpp
+1625341929 source:f:\bsuir\算法与数据结构\趣学算法程序\chapter5\backtrack\main.cpp
 	<iostream>
 	"backtrack.h"
 
-1625252877 f:\bsuir\算法与数据结构\趣学算法程序\chapter5\backtrack\backtrack.h
+1625343316 f:\bsuir\算法与数据结构\趣学算法程序\chapter5\backtrack\backtrack.h
 	<iostream>
 	<vector>
+	<cmath>
 
