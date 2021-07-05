@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1625513315 source:f:\bsuir\算法与数据结构\趣学算法程序\chapter7\linear programming\main.cpp
+	<iostream>
+	"Linearprogramming.h"
+
+1625514838 f:\bsuir\算法与数据结构\趣学算法程序\chapter7\linear programming\linearprogramming.h
+	<iostream>
+	<iomanip>
+	<vector>
+	<queue>
+
+1625517857 source:f:\bsuir\算法与数据结构\趣学算法程序\chapter7\linear programming\linearprogramming.cpp
+	"Linearprogramming.h"
+

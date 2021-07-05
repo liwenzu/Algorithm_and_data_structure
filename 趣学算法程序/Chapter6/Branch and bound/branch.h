@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <iomanip>
 
 using namespace std;
 
@@ -260,6 +261,143 @@ private:
     double bestl = INT_MAX;
     int m;
     vector<vector<double> > g;
+};
+
+class trackPA {
+
+private:
+
+    struct Position{
+        int x;
+        int y;
+    };
+
+public:
+    trackPA()
+    {
+        init();
+        cout << "Constructor" << endl;
+    }
+
+    ~trackPA()
+    {
+        cout << "Destructor" << endl;
+    }
+
+    void print()
+    {
+        for(int i=0;i<grid.size();i++)
+        {
+            for(int j=0;j<grid[0].size();j++)
+                cout << setw(2) << grid[i][j] << "  ";
+            cout << endl;
+        }
+    }
+
+private:
+    void init()
+    {
+        cout << "Please enter the size of the square matrix m, n: " << endl;
+        cin >> m >> n;
+        grid.resize(m+2);
+        for(int i=0;i<grid.size();i++)
+        {
+            if(i==0 || i==m+1)
+                grid[i].resize(n+2, -2);
+            else
+                grid[i].resize(n+2, -1);
+        }
+        for(int i=0;i<grid.size();i++)
+            grid[i][0] = grid[i][n+1] = -2;
+        while(!(m==0&&n==0))
+        {
+            cout << "Please enter the coordinates of the obstacle x, y (0, 0 end)" << endl;
+            cin >> m >> n;
+            grid[m][n] = -2;
+        }
+        cout << "Please enter the starting point coordinates: " << endl;
+        cin >> a.x >> a.y;
+        cout << "Please enter the end point coordinates: " << endl;
+        cin >> b.x >> b.y;
+        if(findpath())
+        {
+            cout << "The shortest path length is: " << Len << endl;
+            cout << "The best path coordinates are: " << endl;
+            for(int i=0;i<Len;i++)
+                cout << setw(2) << way[i].x << setw(2) << way[i].y << endl;
+        }
+        else
+            cout << "Unable to complete the task" << endl;
+    }
+
+    bool findpath()
+    {
+        Position s = a, e = b;
+        if(s.x == e.x && s.y == e.y)
+        {
+            Len = 0;
+            return true;
+        }
+        vector<Position> DIR(4);
+        Position here, next;
+        DIR[0].x = 0;
+        DIR[0].y = 1;
+        DIR[1].x = 1;
+        DIR[1].y = 0;
+        DIR[2].x = 0;
+        DIR[2].y = -1;
+        DIR[3].x = -1;
+        DIR[3].y = 0;
+        here = s;
+        grid[here.x][here.y] = 0;
+        queue<Position> Q;
+        while(true)
+        {
+            for(int i=0;i<4;i++)
+            {
+                next.x = here.x + DIR[i].x;
+                next.y = here.y + DIR[i].y;
+                if(grid[next.x][next.y]==-1)
+                {
+                    grid[next.x][next.y] = grid[here.x][here.y]+1;
+                    Q.push(next);
+                }
+                if(next.x == e.x && next.y == e.y)
+                    break;
+            }
+            if(next.x == e.x && next.y == e.y)
+                break;
+            if(Q.empty())
+                return false;
+            else
+            {
+                here = Q.front();
+                Q.pop();
+            }
+        }
+        Len = grid[e.x][e.y];
+        way.resize(Len);
+        here = e;
+        for(int i=Len-1;i>=0;i--)
+        {
+            way[i] = here;
+            for(int j=0;j<4;j++)
+            {
+                next.x = here.x + DIR[j].x;
+                next.y = here.y + DIR[j].y;
+                if(grid[next.x][next.y] == i)
+                    break;
+            }
+            here = next;
+        }
+        return true;
+    }
+
+private:
+    vector<vector<int> > grid;
+    Position a, b;
+    int Len, m, n;
+    vector<Position> way;
 };
 
 
