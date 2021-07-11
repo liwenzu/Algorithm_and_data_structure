@@ -177,11 +177,8 @@ int trackNT::EK(int s, int t)
 {
     int v,w,d,maxflow;
     maxflow = 0;
-    while(bfs(s,t))
+    while(bfs(1,n))
     {
-
-        cout << "&&&&&&&&&&&&&&&&&&&" << endl;
-
         v = t;
         d = INT_MAX;
         while(v!=s)
@@ -210,8 +207,10 @@ int trackNT::EK(int s, int t)
 
 bool trackNT::bfs(int s, int t)
 {
-    pre.resize(n+1, -1);
-    vis.resize(n+1, false);
+    for(int i=0;i<pre.size();i++)
+        pre[i] = -1;
+    for(int i=0;i<vis.size();i++)
+        vis[i] = false;
     queue<int> q;
     vis[s] = true;
     q.push(s);
@@ -250,6 +249,9 @@ void trackNT::print()
         cout << endl;
     }
 }
+
+
+//coast
 
 
 

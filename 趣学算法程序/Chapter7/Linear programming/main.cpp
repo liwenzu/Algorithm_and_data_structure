@@ -13,10 +13,28 @@ void testNT()
     trackNT nt;
 }
 
+void testCS()
+{
+    trackCS cs;
+}
+
+void testBL()
+{
+    trackBL bl;
+}
+
+void testTO()
+{
+    trackTO to;
+}
+
 int main()
 {
 //    testPR();
-    testNT();
+//    testNT();
+//    testCS();
+//    testBL();
+    testTO();
     cout << "Hello world!" << endl;
     return 0;
 }
