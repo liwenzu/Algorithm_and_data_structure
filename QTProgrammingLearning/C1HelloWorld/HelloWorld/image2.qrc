@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/prefix2">
+        <file>qt2.PNG</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,39 @@
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+#include <QDebug>
+#include <QtNetwork/QHostInfo>
+#include <QLabel>
+#include <QPushButton>
+#include <QLineEdit>
+
+QT_BEGIN_NAMESPACE
+namespace Ui { class Widget; }
+QT_END_NAMESPACE
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
+
+private:
+    QLabel *label;
+    QPushButton *button;
+    QLineEdit *edit;
+    QLabel *result;
+
+private slots:
+    void sendUrl();
+    void lookedUp(const QHostInfo &host);
+
+private:
+    keyPressEvent(QKeyEvent *event);
+
+private:
+    Ui::Widget *ui;
+};
+#endif // WIDGET_H

@@ -1,0 +1,58 @@
+insert into sensor_data (id, cycle, sersor1,sersor2,sersor3,sersor4,sersor5,sersor6,sersor7,sersor8,sersor9,sersor10,sersor11,sersor12,sersor13,sersor14,RUL) values (1,1,2388.06,9046.19,1.3,47.47,521.66,2388.02,8138.62,8.4195,0.03,392,2388,100,39.06,23.419,191);
+
+
+
+
+CREATE TABLE IF NOT EXISTS `sensor_data`(
+   `id` INT UNSIGNED AUTO_INCREMENT,
+   `cycle` INT NOT NULL,
+   `sersor1` FLOAT NOT NULL,
+   `sersor2` FLOAT NOT NULL,
+   `sersor3` FLOAT NOT NULL,
+   `sersor4` FLOAT NOT NULL,
+   `sersor5` FLOAT NOT NULL,
+   `sersor6` FLOAT NOT NULL,
+   `sersor7` FLOAT NOT NULL,
+   `sersor8` FLOAT NOT NULL,
+   `sersor9` FLOAT NOT NULL,
+   `sersor10` FLOAT NOT NULL,
+   `sersor11` FLOAT NOT NULL,
+   `sersor12` FLOAT NOT NULL,
+   `sersor13` FLOAT NOT NULL,
+   `sersor14` FLOAT NOT NULL,
+   `RUL` INT NOT NULL,
+   PRIMARY KEY ( `id` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE IF NOT EXISTS `sensor_data1`(
+   `id` INT UNSIGNED AUTO_INCREMENT,
+   `cycle` INT NOT NULL,
+   `sersor1` FLOAT NOT NULL,
+   PRIMARY KEY ( `id`,`cycle` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `abnormal_data`(
+   `id` int(11) NOT NULL,
+   `sensor_id` INT UNSIGNED AUTO_INCREMENT,
+   `cycle` INT NOT NULL,
+   `sersor2` FLOAT NOT NULL,   
+   `lru_name` varchar(256) NOT NULL,
+   `lru_id` varchar(32) NOT NULL,
+   PRIMARY KEY ( `sensor_id`,`cycle` )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+
+
+
+
+
+
+
