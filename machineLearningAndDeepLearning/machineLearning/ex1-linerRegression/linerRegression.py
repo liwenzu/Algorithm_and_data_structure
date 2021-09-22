@@ -10,7 +10,6 @@ data.describe()
 # data.plot(kind='scatter', x='Population', y='Profit', figsize=(12, 8))
 # plt.show()
 
-
 def computCost(X, y, theta):
     inner = np.power(((X * theta.T) - y), 2)
     return np.sum(inner) / (2 * len(X))
@@ -82,8 +81,66 @@ plt.show()
 
 
 
+#****************************************************************************
+#****************************************************************************
+
+path = 'ex1data2.txt'
+data2 = pd.read_csv(path, header=None, names=['Size', 'Bedrooms', 'Price'])
+
+# 特征归一化处理
+data2 = (data2-data2.mean())/data2.std()
+
+# 开始线性回归操作
+data2.insert(0, 'Ones', 1)
+cols = data2.shape[1]
+X2 = data2.iloc[:,0:cols-1]
+y2 = data2.iloc[:,cols-1:cols]
+
+X2 = np.matrix(X2.values)
+y2 = np.matrix(y2.values)
+theta2 = np.matrix(np.array([0,0,0]))
+
+g2, cost2 = gradientDescent(X2, y2, theta2, alpha, iters)
 
 
+# print("预测结果和最终结果的误差(第二个结果): ", computCost(X2, y2, g2))
+# fig, ax = plt.subplots(figsize=(12,8))
+# ax.plot(np.arange(iters), cost2, 'r')
+# ax.set_xlabel('Iterations')
+# ax.set_ylabel('Cost')
+# ax.set_title('Error vs. Training Epoch')
+# plt.show()
+
+
+
+#****************************************************************************
+#****************************************************************************
+# 使用scikit-learn的线性回归函数，
+from sklearn import linear_model
+
+def skline():
+    model = linear_model.LinearRegression()
+    model.fit(X, y)
+    x = np.array(X[:,1].A1)
+    # print(X[:,1].A1)
+    f = model.predict(X).flatten()
+    # print(f)
+    fig, ax = plt.subplots(figsize=(12, 8))
+    ax.plot(x, f, 'r', label='Prediction')
+    ax.scatter(data.Population, data.Profit, label='Traning Data')
+    ax.legend(loc=2)
+    ax.set_xlabel('Population')
+    ax.set_ylabel('Profit')
+    ax.set_title('Predicted Profit vs. Population Size')
+    plt.show()
+
+
+# skline()
+
+
+#****************************************************************************
+#****************************************************************************
+# 4. normal equation（正规方程）
 
 
 
