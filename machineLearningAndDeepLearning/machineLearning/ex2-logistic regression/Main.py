@@ -14,6 +14,8 @@ class MainQWidget(QWidget):
         self.ui = Ui_untitled.Ui_Form()
         self.ui.setupUi(self)
         self.ui.pushButton.clicked.connect(self.openFile)
+        self.ui.pushButton_2.clicked.connect(self.normalReg)
+        self.ui.pushButton_3.clicked.connect(self.regularizedReg)
 
     def sigmoid(self, z):
         return 1/(1+np.exp(-z))
@@ -57,22 +59,17 @@ class MainQWidget(QWidget):
         return [1 if x >= 0.5 else 0 for x in probability]
 
 
+    # 正则化逻辑回归
 
+    def regularizedReg(self):
+        print("12345")
 
-
-
-
-    def openFile(self):
-        _translate = QtCore.QCoreApplication.translate
-        self.path = QFileDialog.getOpenFileName(self, 'Open file', 'F:\\BSUIR\\算法与数据结构\\machineLearningAndDeepLearning\\machineLearning\\ex2-logistic regression', '*.txt')
-        self.path = str(self.path[0])
-        self.ui.lineEdit.setText(self.path)
-        data = pd.read_csv(self.path, header=None, names=['Exam 1', 'Exam 2', 'Admitted'])
-        
+    # 普通逻辑回归
+    def normalReg(self):
+        data = pd.read_csv(self.path, header=None, names=['Exam 1', 'Exam 2', 'Admitted'])  
         self.positive = data[data['Admitted'].isin([1])]
         self.negative = data[data['Admitted'].isin([0])]
         
-
         # 数据可视化，即成绩和接受性可视化
         # fig, ax = plt.subplots(figsize=(12,8))
         # ax.scatter(self.positive['Exam 1'], self.positive['Exam 2'], s=50, c='b', marker='o', label='Admitted')
@@ -100,7 +97,9 @@ class MainQWidget(QWidget):
 
         #计算初始theta为0时的代价
         init_result = self.cost(theta, X, y)
-        print(init_result)
+        # 初始的代价值
+        self.ui.lineEdit_2.setText(str(init_result))
+        # print(init_result)
 
 
         # 打印第一步计算的梯度 
@@ -110,13 +109,24 @@ class MainQWidget(QWidget):
         result = opt.fmin_tnc(func=self.cost, x0=theta, fprime=self.gradient, args=(X, y))
 
         # 优化后的代价函数
-        print(self.cost(result[0], X, y))
+        # print(self.cost(result[0], X, y))
+        self.ui.lineEdit_3.setText(str(self.cost(result[0], X, y)))
 
         theta_min = np.matrix(result[0])
         predictions = self.predict(theta_min, X)
         correct = [1 if a == b else 0 for (a, b) in zip(predictions, y)]
         accuracy = (sum(map(int, correct)) % len(correct))
-        print ('accuracy = {0}%'.format(accuracy))
+        # 最后的精度
+        # print ('accuracy = {0}%'.format(accuracy))
+        self.ui.lineEdit_4.setText('{0}%'.format(accuracy))
+
+
+    def openFile(self):
+        _translate = QtCore.QCoreApplication.translate
+        self.path = QFileDialog.getOpenFileName(self, 'Open file', 'F:\\BSUIR\\算法与数据结构\\machineLearningAndDeepLearning\\machineLearning\\ex2-logistic regression', '*.txt')
+        self.path = str(self.path[0])
+        self.ui.lineEdit.setText(self.path)
+
 
 
 
