@@ -1,5 +1,6 @@
 from logging import error
 import sys
+from warnings import filters
 from PyQt5.QtWidgets import QApplication, QFileDialog, QMainWindow, QWidget
 import Ui_untitled
 from PyQt5 import QtCore
@@ -7,6 +8,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy.optimize as opt
+# from sklearn import linear_model
 
 class MainQWidget(QWidget):
     def __init__(self, parent = None):
@@ -35,6 +37,15 @@ class MainQWidget(QWidget):
         second = np.multiply((1-y), np.log(1-self.sigmoid(X*theta.T)))
         return np.sum(first-second)/(len(X))
 
+    def costReg(self,theta, X, y, learningRate):
+        theta = np.matrix(theta)
+        X = np.matrix(X)
+        y = np.matrix(y)
+        first = np.multiply(-y, np.log(self.sigmoid(X*theta.T)))
+        second = np.multiply((1-y), np.log(1 - self.sigmoid(X*theta.T)))
+        reg = (learningRate / (2*len(X)))*np.sum(np.power(theta[:, 1:theta.shape[1]], 2))
+        return np.sum(first - second)/len(X) +reg
+
 
     # 梯度计算
     def gradient(self, theta, X, y):
@@ -52,6 +63,26 @@ class MainQWidget(QWidget):
             grad[i] = np.sum(term)/len(X)
         return grad
 
+    # 正则化梯度下降
+    def gradientReg(self, theta, X, y, learningRate):
+        theta = np.matrix(theta)
+        X = np.matrix(X)
+        y = np.matrix(y)
+        # 参数的个数
+        parameters = int(theta.ravel().shape[1])
+        # 梯度的个数
+        grad = np.zeros(parameters)
+        error = self.sigmoid(X*theta.T) - y
+
+        for i in range(parameters):
+            term = np.multiply(error, X[:,i])
+            if i  == 0:
+                grad[i] = np.sum(term)/len(X)
+            else:
+                grad[i] = np.sum(term)/len(X) + (learningRate/len(X))*theta[:,i]
+
+        return grad
+
 
     # 预测函数
     def predict(self, theta, X):
@@ -62,7 +93,68 @@ class MainQWidget(QWidget):
     # 正则化逻辑回归
 
     def regularizedReg(self):
-        print("12345")
+        data2 = pd.read_csv(self.path, header=None, names=['Test1', 'Test2', 'Accepted'])
+
+        positive = data2[data2['Accepted'].isin([1])]
+        negative = data2[data2['Accepted'].isin([0])]
+
+        # 打印数据分布
+        # fig, ax = plt.subplots(figsize=(12,8))
+        # ax.scatter(positive['Test1'], positive['Test2'], s=50, c='b', marker='o', label = 'Accepted')
+        # ax.scatter(negative['Test1'], negative['Test2'], s=50, c='r', marker='x', label = 'Rejected')
+        # ax.legend()
+        # ax.set_xlabel('Test1 Score')
+        # ax.set_ylabel('Test2 Score')
+        # plt.show()
+
+        degree = 5
+        x1 = data2['Test1']
+        x2 = data2['Test2']
+        data2.insert(3, 'Ones', 1)
+
+        # print(data2.head())
+
+        for i in range(1, degree):
+            for j in range(0, i):
+                data2['F'+str(i)+str(j)] = np.power(x1, i-j)*np.power(x2, j)
+        data2.drop('Test1', axis=1, inplace=True)
+        data2.drop('Test2', axis=1, inplace=True)
+
+        # print('------------')
+        # print(data2.head())
+
+        cols = data2.shape[1]
+        X2 = data2.iloc[:,1:cols]
+        y2 = data2.iloc[:,0:1]
+
+        X2 = np.array(X2.values)
+        y2 = np.array(y2.values)
+        theta2 = np.zeros(11)
+
+        learningRate = 1
+
+        self.ui.lineEdit_2.setText(str(self.costReg(theta2, X2, y2, learningRate)))
+        # print(self.costReg(theta2, X2, y2, learningRate))
+
+        result2 = opt.fmin_tnc(func=self.costReg, x0=theta2, fprime=self.gradientReg, args=(X2, y2, learningRate))     
+    
+        # print(result2)
+
+
+        theta_min = np.matrix(result2[0])
+        # 最终代价
+        self.ui.lineEdit_3.setText(str(self.costReg(theta_min, X2, y2, learningRate)))
+
+        predictions = self.predict(theta_min, X2)
+        correct = [1 if a == b else 0 for (a, b) in zip(predictions, y2)]
+        accuracy = (sum(map(int, correct)) % len(correct))
+        # 最后的精度
+        print ('accuracy = {0}%'.format(accuracy))
+        self.ui.lineEdit_4.setText(str('{0}%'.format(accuracy)))
+
+        # print(y2.head())
+
+        # print(data2.head())
 
     # 普通逻辑回归
     def normalReg(self):
@@ -126,10 +218,6 @@ class MainQWidget(QWidget):
         self.path = QFileDialog.getOpenFileName(self, 'Open file', 'F:\\BSUIR\\算法与数据结构\\machineLearningAndDeepLearning\\machineLearning\\ex2-logistic regression', '*.txt')
         self.path = str(self.path[0])
         self.ui.lineEdit.setText(self.path)
-
-
-
-
 
 
 if __name__ == '__main__':
