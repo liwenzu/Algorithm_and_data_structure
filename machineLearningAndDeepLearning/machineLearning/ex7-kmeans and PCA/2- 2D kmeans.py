@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from scipy.sparse import data
 import seaborn as sns
 import numpy as np
 import pandas as pd
@@ -53,7 +54,7 @@ def new_centroids(data, C):
                        mean().\
                        sort_values(by='C').\
                        drop('C', axis=1).\
-                       as_matrix()
+                       values
 
 
 def cost(data, centroids, C):
@@ -135,11 +136,38 @@ def main():
 
     # print(data_with_c)
 
-    sns.lmplot('X1', 'X2', hue='C', data=data_with_c, fit_reg=False)
-    plt.show()
+    # sns.lmplot('X1', 'X2', hue='C', data=data_with_c, fit_reg=False)
+    # plt.show()
 
 
     # 2. calculate new centroid
+    new_centroids(data2, C)
+    final_C, final_centroid, _ = _k_means_iter(data2, 3)
+    data_with_c = combine_data_C(data2, final_C)
 
+    # sns.lmplot('X1', 'X2', hue='C', data=data_with_c, fit_reg=False)
+    # plt.show()
+    print("计算最终的代价:", cost(data2, final_centroid, final_C))
+
+    best_C, best_centroids, least_cost = k_means(data2, 3)
+
+    print("最新代价为:", least_cost)
+
+    data_with_c = combine_data_C(data2, best_C)
+    # sns.lmplot('X1', 'X2', hue='C', data=data_with_c, fit_reg=False)
+    # plt.show()
+
+    # 尝试使用机器学习库
+    from sklearn.cluster import KMeans
+    sk_kmeans = KMeans(n_clusters=3)
+    sk_kmeans.fit(data2)
+
+    sk_C = sk_kmeans.predict(data2)
+
+    data_with_c = combine_data_C(data2, sk_C)
+
+    # print(data_with_c)
+    sns.lmplot('X1', 'X2', hue='C', data=data_with_c, fit_reg=False)
+    plt.show()
 
 main()
